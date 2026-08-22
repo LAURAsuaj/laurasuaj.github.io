@@ -1,84 +1,209 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <title>Login Básico</title>
-  <style>
-    body{
-      font-family: Arial, sans-serif;
-      background:#f0f2f5;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      height:100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi aplicación - Login</title>
 
-    .login{
-      background:white;
-      padding:20px;
-      border-radius:10px;
-      width:300px;
-      box-shadow:0 0 10px rgba(0,0,0,.2);
-    }
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
 
-    h2{
-      text-align:center;
-      color:#1877f2;
-    }
+        .contenedor {
+            background: white;
+            width: 350px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
 
-    input{
-      width:100%;
-      padding:10px;
-      margin:8px 0;
-      border:1px solid #ccc;
-      border-radius:5px;
-      box-sizing:border-box;
-    }
+        h1 {
+            text-align: center;
+            color: #1877f2;
+        }
 
-    button{
-      width:100%;
-      padding:10px;
-      background:#1877f2;
-      color:white;
-      border:none;
-      border-radius:5px;
-      cursor:pointer;
-    }
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+        }
 
-    button:hover{
-      background:#145dbf;
-    }
-  </style>
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 6px;
+            background: #1877f2;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #145dbf;
+        }
+
+        .registro {
+            background: #42b72a;
+        }
+
+        #mensaje {
+            text-align: center;
+            margin-top: 15px;
+        }
+    </style>
 </head>
+
 <body>
 
-<div class="login">
-  <h2>Mi Login</h2>
+<div class="contenedor">
 
-  <input type="text" id="usuario" placeholder="Usuario">
-  <input type="password" id="password" placeholder="Contraseña">
+    <h1>Mi Aplicación</h1>
 
-  <button onclick="ingresar()">Iniciar sesión</button>
+    <h3>Iniciar sesión</h3>
+
+    <input
+        type="email"
+        id="email"
+        placeholder="Correo electrónico"
+    >
+
+    <input
+        type="password"
+        id="password"
+        placeholder="Contraseña"
+    >
+
+    <button onclick="iniciarSesion()">
+        Iniciar sesión
+    </button>
+
+    <button class="registro" onclick="registrarUsuario()">
+        Crear cuenta
+    </button>
+
+    <p id="mensaje"></p>
+
 </div>
 
-<script>
-function ingresar(){
+<script type="module">
 
-  let usuario = document.getElementById("usuario").value;
-  let password = document.getElementById("password").value;
+    import {
+        auth,
+        db,
+        createUserWithEmailAndPassword,
+        signInWithEmailAndPassword,
+        addDoc,
+        collection,
+        serverTimestamp
+    } from "./firebase.js";
 
-  if(usuario === "" || password === ""){
-    alert("Complete todos los campos");
-    return;
-  }
 
-  // Guarda los datos en el navegador (solo para práctica)
-  localStorage.setItem("usuario", usuario);
-  localStorage.setItem("password", password);
+    // REGISTRAR USUARIO
+    window.registrarUsuario = async function() {
 
-  // Redirige a una página local
-  window.location.href = "inicio.html";
-}
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        if (!email || !password) {
+            mostrarMensaje("Completa todos los campos.");
+            return;
+        }
+
+        try {
+
+            const usuario = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            // Guardamos información básica del usuario
+            await addDoc(collection(db, "usuarios"), {
+                uid: usuario.user.uid,
+                email: usuario.user.email,
+                fechaRegistro: serverTimestamp()
+            });
+
+            mostrarMensaje("Cuenta creada correctamente.");
+
+            setTimeout(() => {
+                window.location.href = "inicio.html";
+            }, 1000);
+
+        } catch (error) {
+
+            mostrarMensaje(
+                "Error: " + error.message
+            );
+
+        }
+    };
+
+
+    // INICIAR SESIÓN
+    window.iniciarSesion = async function() {
+
+        const email = document.getElementById("email").value;
+        const password = document.getElementById("password").value;
+
+        if (!email || !password) {
+            mostrarMensaje("Completa todos los campos.");
+            return;
+        }
+
+        try {
+
+            const usuario = await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            // REGISTRAR EL INICIO DE SESIÓN
+            await addDoc(collection(db, "inicios_sesion"), {
+
+                uid: usuario.user.uid,
+
+                email: usuario.user.email,
+
+                fecha: serverTimestamp()
+
+            });
+
+            mostrarMensaje("Inicio de sesión correcto.");
+
+            setTimeout(() => {
+                window.location.href = "inicio.html";
+            }, 1000);
+
+        } catch (error) {
+
+            mostrarMensaje(
+                "Correo o contraseña incorrectos."
+            );
+
+        }
+    };
+
+
+    function mostrarMensaje(texto) {
+
+        document.getElementById("mensaje").textContent = texto;
+
+    }
+
 </script>
 
 </body>
