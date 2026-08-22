@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Básico</title>
+  <style>
+    body{
+      font-family: Arial, sans-serif;
+      background:#f0f2f5;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      height:100vh;
+    }
+
+    .login{
+      background:white;
+      padding:20px;
+      border-radius:10px;
+      width:300px;
+      box-shadow:0 0 10px rgba(0,0,0,.2);
+    }
+
+    h2{
+      text-align:center;
+      color:#1877f2;
+    }
+
+    input{
+      width:100%;
+      padding:10px;
+      margin:8px 0;
+      border:1px solid #ccc;
+      border-radius:5px;
+      box-sizing:border-box;
+    }
+
+    button{
+      width:100%;
+      padding:10px;
+      background:#1877f2;
+      color:white;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+    }
+
+    button:hover{
+      background:#145dbf;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login">
+  <h2>Mi Login</h2>
+
+  <input type="text" id="usuario" placeholder="Usuario">
+  <input type="password" id="password" placeholder="Contraseña">
+
+  <button onclick="ingresar()">Iniciar sesión</button>
+</div>
+
+<script>
+function ingresar(){
+
+  let usuario = document.getElementById("usuario").value;
+  let password = document.getElementById("password").value;
+
+  if(usuario === "" || password === ""){
+    alert("Complete todos los campos");
+    return;
+  }
+
+  // Guarda los datos en el navegador (solo para práctica)
+  localStorage.setItem("usuario", usuario);
+  localStorage.setItem("password", password);
+
+  // Redirige a una página local
+  window.location.href = "inicio.html";
+}
+</script>
+
+</body>
+</html>
