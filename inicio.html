@@ -5,46 +5,333 @@
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Inicio</title>
+    <title>Mi Red Social</title>
 
     <style>
 
+        * {
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: Arial, sans-serif;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
             background: #f0f2f5;
-            text-align: center;
-            padding-top: 100px;
+            color: #1c1e21;
         }
 
-        .contenedor {
+        /* BARRA DE NAVEGACIÓN */
+
+        .navbar {
+            height: 60px;
             background: white;
-            width: 350px;
-            margin: auto;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 25px;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
 
-        h1 {
+        .logo {
+            font-size: 25px;
+            font-weight: bold;
             color: #1877f2;
+        }
+
+        .buscador {
+            width: 300px;
+            padding: 10px 15px;
+            border: none;
+            background: #f0f2f5;
+            border-radius: 20px;
+            outline: none;
+        }
+
+        .menu {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .menu span {
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        /* CONTENEDOR PRINCIPAL */
+
+        .contenido {
+            width: 900px;
+            max-width: 95%;
+            margin: 25px auto;
+        }
+
+        /* PUBLICACIÓN */
+
+        .publicacion {
+            background: white;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            padding: 18px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+        }
+
+        .usuario {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+
+        .avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: #1877f2;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .nombre {
+            font-weight: bold;
+        }
+
+        .fecha {
+            font-size: 12px;
+            color: #65676b;
+            margin-top: 3px;
+        }
+
+        .texto {
+            font-size: 16px;
+            line-height: 1.5;
+            margin: 15px 0;
+        }
+
+        .acciones {
+            border-top: 1px solid #ddd;
+            padding-top: 12px;
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .acciones button {
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            padding: 8px 25px;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .acciones button:hover {
+            background: #f0f2f5;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 700px) {
+
+            .buscador {
+                width: 150px;
+            }
+
+            .menu span {
+                display: none;
+            }
+
+            .contenido {
+                width: 95%;
+            }
+
         }
 
     </style>
 
 </head>
 
+
 <body>
 
-<div class="contenedor">
 
-    <h1>Bienvenido</h1>
+<!-- BARRA DE NAVEGACIÓN -->
 
-    <p>El formulario fue enviado correctamente.</p>
+<nav class="navbar">
 
-</div>
+    <div class="logo">
+        MiRed
+    </div>
+
+    <input
+        class="buscador"
+        type="text"
+        placeholder="Buscar..."
+    >
+
+    <div class="menu">
+
+        <span>Inicio</span>
+
+        <span>Amigos</span>
+
+        <span>Notificaciones</span>
+
+        <span>Perfil</span>
+
+    </div>
+
+</nav>
+
+
+<!-- PUBLICACIONES -->
+
+<main class="contenido">
+
+
+    <!-- PUBLICACIÓN 1 -->
+
+    <article class="publicacion">
+
+        <div class="usuario">
+
+            <div class="avatar">
+                J
+            </div>
+
+            <div>
+
+                <div class="nombre">
+                    Juan Pérez
+                </div>
+
+                <div class="fecha">
+                    Hace 10 minutos
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="texto">
+
+            Hoy fue un excelente día para aprender algo nuevo.
+            ¿Qué están haciendo ustedes?
+
+        </div>
+
+        <div class="acciones">
+
+            <button>👍 Me gusta</button>
+
+            <button>💬 Comentar</button>
+
+            <button>↗ Compartir</button>
+
+        </div>
+
+    </article>
+
+
+
+    <!-- PUBLICACIÓN 2 -->
+
+    <article class="publicacion">
+
+        <div class="usuario">
+
+            <div class="avatar">
+                M
+            </div>
+
+            <div>
+
+                <div class="nombre">
+                    María López
+                </div>
+
+                <div class="fecha">
+                    Hace 35 minutos
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="texto">
+
+            Terminando un proyecto de programación.
+            ¡Cada vez falta menos!
+
+        </div>
+
+        <div class="acciones">
+
+            <button>👍 Me gusta</button>
+
+            <button>💬 Comentar</button>
+
+            <button>↗ Compartir</button>
+
+        </div>
+
+    </article>
+
+
+
+    <!-- PUBLICACIÓN 3 -->
+
+    <article class="publicacion">
+
+        <div class="usuario">
+
+            <div class="avatar">
+                C
+            </div>
+
+            <div>
+
+                <div class="nombre">
+                    Carlos Rodríguez
+                </div>
+
+                <div class="fecha">
+                    Hace 1 hora
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="texto">
+
+            ¿Alguien conoce algún buen lugar para estudiar
+            y trabajar con el computador?
+
+        </div>
+
+        <div class="acciones">
+
+            <button>👍 Me gusta</button>
+
+            <button>💬 Comentar</button>
+
+            <button>↗ Compartir</button>
+
+        </div>
+
+    </article>
+
+
+</main>
+
 
 </body>
 
