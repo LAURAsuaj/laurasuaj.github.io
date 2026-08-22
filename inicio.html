@@ -1,58 +1,100 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-  <meta charset="UTF-8">
-  <title>Inicio</title>
-  <style>
-    body{
-      font-family:Arial, sans-serif;
-      background:#f0f2f5;
-      text-align:center;
-      margin-top:80px;
-    }
 
-    h1{
-      color:#1877f2;
-    }
+    <meta charset="UTF-8">
 
-    .card{
-      background:white;
-      width:350px;
-      margin:auto;
-      padding:20px;
-      border-radius:10px;
-      box-shadow:0 0 10px rgba(0,0,0,.2);
-    }
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
-    button{
-      padding:10px 20px;
-      background:#e53935;
-      color:white;
-      border:none;
-      border-radius:5px;
-      cursor:pointer;
-    }
-  </style>
+    <title>Inicio</title>
+
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f2f5;
+            text-align: center;
+            padding-top: 100px;
+        }
+
+        .contenedor {
+            background: white;
+            width: 350px;
+            margin: auto;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        h1 {
+            color: #1877f2;
+        }
+
+        button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 6px;
+            background: #e53935;
+            color: white;
+            cursor: pointer;
+        }
+
+    </style>
+
 </head>
+
 <body>
 
-<div class="card">
-  <h1>Bienvenido</h1>
+<div class="contenedor">
 
-  <p><strong>Usuario:</strong> <span id="nombre"></span></p>
+    <h1>Bienvenido</h1>
 
-  <button onclick="cerrarSesion()">Cerrar sesión</button>
+    <p id="usuario"></p>
+
+    <button onclick="cerrarSesion()">
+        Cerrar sesión
+    </button>
+
 </div>
 
-<script>
-document.getElementById("nombre").textContent =
-  localStorage.getItem("usuario");
 
-function cerrarSesion(){
-  localStorage.clear();
-  window.location.href = "login.html";
-}
+<script type="module">
+
+    import {
+        auth,
+        signOut,
+        onAuthStateChanged
+    } from "./firebase.js";
+
+
+    onAuthStateChanged(auth, (usuario) => {
+
+        if (usuario) {
+
+            document.getElementById("usuario").textContent =
+                "Usuario: " + usuario.email;
+
+        } else {
+
+            window.location.href = "index.html";
+
+        }
+
+    });
+
+
+    window.cerrarSesion = async function() {
+
+        await signOut(auth);
+
+        window.location.href = "index.html";
+
+    };
+
 </script>
 
 </body>
+
 </html>
