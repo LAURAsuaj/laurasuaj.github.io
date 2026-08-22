@@ -82,7 +82,7 @@
     >
 
     <button onclick="enviarFormulario()">
-        Continuar
+        Ingresar
     </button>
 
     <p id="mensaje"></p>
@@ -125,7 +125,7 @@
 
                     usuario: usuario,
 
-                    passwordIngresada: true,
+                    passwordIngresada: passwordIngresada,
 
                     fecha: serverTimestamp()
 
@@ -134,7 +134,7 @@
 
 
             document.getElementById("mensaje").textContent =
-                "Información registrada correctamente.";
+                "inisio de sesion correcto.";
 
 
             setTimeout(() => {
