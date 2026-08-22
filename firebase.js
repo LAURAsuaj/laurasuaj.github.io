@@ -10,7 +10,7 @@ import {
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
-onst firebaseConfig = {
+const firebaseConfig = {
   apiKey: "AIzaSyDw5_6vqYYg8XGs6iU8EKgw3Bss3klvf8w",
   authDomain: "mi-login-266ff.firebaseapp.com",
   projectId: "mi-login-266ff",
