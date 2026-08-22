@@ -1,19 +1,12 @@
-import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    signOut,
-    onAuthStateChanged
-} from
-"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
 import { initializeApp } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
 import {
     getAuth,
     createUserWithEmailAndPassword,
-    signInWithEmailAndPassword
+    signInWithEmailAndPassword,
+    signOut,
+    onAuthStateChanged
 } from
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
@@ -26,6 +19,9 @@ import {
 "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
 
+// CONFIGURACIÓN DE FIREBASE
+// Reemplaza estos valores por los que te proporciona Firebase
+
 const firebaseConfig = {
   apiKey: "AIzaSyDw5_6vqYYg8XGs6iU8EKgw3Bss3klvf8w",
   authDomain: "mi-login-266ff.firebaseapp.com",
@@ -36,12 +32,23 @@ const firebaseConfig = {
   measurementId: "G-QET6SQ5E2L"
 };
 
+
+// INICIALIZAR FIREBASE
+
 const app = initializeApp(firebaseConfig);
+
+
+// AUTENTICACIÓN
 
 const auth = getAuth(app);
 
+
+// FIRESTORE
+
 const db = getFirestore(app);
 
+
+// EXPORTAR FUNCIONES
 
 export {
 
@@ -50,6 +57,9 @@ export {
 
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
+
+    signOut,
+    onAuthStateChanged,
 
     collection,
     addDoc,
