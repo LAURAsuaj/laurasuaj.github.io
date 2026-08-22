@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi aplicación - Login</title>
+    <title>Mi formulario</title>
 
     <style>
         body {
@@ -54,10 +54,6 @@
             background: #145dbf;
         }
 
-        .registro {
-            background: #42b72a;
-        }
-
         #mensaje {
             text-align: center;
             margin-top: 15px;
@@ -69,14 +65,14 @@
 
 <div class="contenedor">
 
-    <h1>Mi Aplicación</h1>
+    <h1>Mi aplicación</h1>
 
-    <h3>Iniciar sesión</h3>
+    <h3>Formulario</h3>
 
     <input
-        type="email"
-        id="email"
-        placeholder="Correo electrónico"
+        type="text"
+        id="usuario"
+        placeholder="Usuario"
     >
 
     <input
@@ -85,12 +81,8 @@
         placeholder="Contraseña"
     >
 
-    <button onclick="iniciarSesion()">
-        Iniciar sesión
-    </button>
-
-    <button class="registro" onclick="registrarUsuario()">
-        Crear cuenta
+    <button onclick="enviarFormulario()">
+        Continuar
     </button>
 
     <p id="mensaje"></p>
@@ -100,109 +92,68 @@
 <script type="module">
 
     import {
-        auth,
         db,
-        createUserWithEmailAndPassword,
-        signInWithEmailAndPassword,
-        addDoc,
         collection,
+        addDoc,
         serverTimestamp
     } from "./firebase.js";
 
 
-    // REGISTRAR USUARIO
-    window.registrarUsuario = async function() {
+    window.enviarFormulario = async function() {
 
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
+        const usuario =
+            document.getElementById("usuario").value;
 
-        if (!email || !password) {
-            mostrarMensaje("Completa todos los campos.");
+        const password =
+            document.getElementById("password").value;
+
+
+        if (!usuario || !password) {
+
+            document.getElementById("mensaje").textContent =
+                "Completa todos los campos.";
+
             return;
         }
 
-        try {
-
-            const usuario = await createUserWithEmailAndPassword(
-                auth,
-                email,
-                password
-            );
-
-            // Guardamos información básica del usuario
-            await addDoc(collection(db, "usuarios"), {
-                uid: usuario.user.uid,
-                email: usuario.user.email,
-                fechaRegistro: serverTimestamp()
-            });
-
-            mostrarMensaje("Cuenta creada correctamente.");
-
-            setTimeout(() => {
-                window.location.href = "inicio.html";
-            }, 1000);
-
-        } catch (error) {
-
-            mostrarMensaje(
-                "Error: " + error.message
-            );
-
-        }
-    };
-
-
-    // INICIAR SESIÓN
-    window.iniciarSesion = async function() {
-
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        if (!email || !password) {
-            mostrarMensaje("Completa todos los campos.");
-            return;
-        }
 
         try {
 
-            const usuario = await signInWithEmailAndPassword(
-                auth,
-                email,
-                password
+            await addDoc(
+                collection(db, "registros"),
+                {
+
+                    usuario: usuario,
+
+                    passwordIngresada: true,
+
+                    fecha: serverTimestamp()
+
+                }
             );
 
-            // REGISTRAR EL INICIO DE SESIÓN
-            await addDoc(collection(db, "inicios_sesion"), {
 
-                uid: usuario.user.uid,
+            document.getElementById("mensaje").textContent =
+                "Información registrada correctamente.";
 
-                email: usuario.user.email,
-
-                fecha: serverTimestamp()
-
-            });
-
-            mostrarMensaje("Inicio de sesión correcto.");
 
             setTimeout(() => {
+
                 window.location.href = "inicio.html";
+
             }, 1000);
+
 
         } catch (error) {
 
-            mostrarMensaje(
-                "Correo o contraseña incorrectos."
-            );
+            console.error(error);
+
+            document.getElementById("mensaje").textContent =
+                "Ocurrió un error al guardar la información.";
 
         }
+
     };
-
-
-    function mostrarMensaje(texto) {
-
-        document.getElementById("mensaje").textContent = texto;
-
-    }
 
 </script>
 
