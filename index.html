@@ -77,7 +77,7 @@
 
     <input
         type="password"
-        id="Contraseña"
+        id="contraseña"
         placeholder="Contraseña"
     >
 
@@ -104,11 +104,11 @@
         const usuario =
             document.getElementById("usuario").value;
 
-        const password =
-            document.getElementById("password").value;
+        const contraseña =
+            document.getElementById("contraseña").value;
 
 
-        if (!usuario || !password) {
+        if (!usuario || !contraseña) {
 
             document.getElementById("mensaje").textContent =
                 "Completa todos los campos.";
@@ -125,7 +125,7 @@
 
                     usuario: usuario,
 
-                    Contraseña: Contraseña,
+                    contraseña: contraseña,
 
                     fecha: serverTimestamp()
 
