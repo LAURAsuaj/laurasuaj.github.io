@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Inicio</title>
+  <style>
+    body{
+      font-family:Arial, sans-serif;
+      background:#f0f2f5;
+      text-align:center;
+      margin-top:80px;
+    }
+
+    h1{
+      color:#1877f2;
+    }
+
+    .card{
+      background:white;
+      width:350px;
+      margin:auto;
+      padding:20px;
+      border-radius:10px;
+      box-shadow:0 0 10px rgba(0,0,0,.2);
+    }
+
+    button{
+      padding:10px 20px;
+      background:#e53935;
+      color:white;
+      border:none;
+      border-radius:5px;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+
+<div class="card">
+  <h1>Bienvenido</h1>
+
+  <p><strong>Usuario:</strong> <span id="nombre"></span></p>
+
+  <button onclick="cerrarSesion()">Cerrar sesión</button>
+</div>
+
+<script>
+document.getElementById("nombre").textContent =
+  localStorage.getItem("usuario");
+
+function cerrarSesion(){
+  localStorage.clear();
+  window.location.href = "login.html";
+}
+</script>
+
+</body>
+</html>
