@@ -42,34 +42,9 @@
 
     <h1>Bienvenido</h1>
 
-    <p id="usuario"></p>
-
-    <button onclick="cerrarSesion()">
-        Cerrar sesión
-    </button>
+    <p>El formulario fue enviado correctamente.</p>
 
 </div>
-
-
-<script type="module">
-
-    import {
-        auth,
-        signOut,
-      
-    } from "./firebase.js";
-
-
-
-    window.cerrarSesion = async function() {
-
-        await signOut(auth);
-
-        window.location.href = "index.html";
-
-    };
-
-</script>
 
 </body>
 
