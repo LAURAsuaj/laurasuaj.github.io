@@ -32,15 +32,6 @@
             color: #1877f2;
         }
 
-        button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 6px;
-            background: #e53935;
-            color: white;
-            cursor: pointer;
-        }
-
     </style>
 
 </head>
@@ -65,24 +56,9 @@
     import {
         auth,
         signOut,
-        onAuthStateChanged
+      
     } from "./firebase.js";
 
-
-    onAuthStateChanged(auth, (usuario) => {
-
-        if (usuario) {
-
-            document.getElementById("usuario").textContent =
-                "Usuario: " + usuario.email;
-
-        } else {
-
-            window.location.href = "index.html";
-
-        }
-
-    });
 
 
     window.cerrarSesion = async function() {
